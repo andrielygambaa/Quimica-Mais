@@ -1,0 +1,331 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
+}
+
+/* Corpo da página */
+body {
+  background: linear-gradient(120deg, #1e3c72, #2a5298);
+  color: white;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logotipo de química */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #ffeb3b;
+}
+
+/* Links das outras páginas */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 35px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  position: relative;
+  padding: 5px;
+  transition: 0.3s;
+}
+
+/* Adiciona o efeito de sublinhado nos links */
+.nav-links li a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background: #ffeb3b;
+  transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+.nav-links li a:hover {
+  color: #ffeb3b;
+}
+
+/* Conteúdo da página inicial */
+header {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+header h1 {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+header p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+/* História */
+
+/* Define toda a estrutura da linha do tempo */
+.timeline {
+  padding: 60px 20px;
+  background: #f0f4f8;
+  color: #333;
+  text-align: center;
+}
+
+.timeline h2 {
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: #1e3c72;
+}
+
+/* Container de cada período da história */
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  position: relative;
+}
+
+/* Responsável por todos os itens da linha, cor, linhas e transição */
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.timeline-item:hover {
+  transform: translateY(-10px);
+}
+
+/* Foto de cada nome da química - alquimia*/
+.timeline-img img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.timeline-item:hover .timeline-img img {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Título e espaçamento */
+.timeline-content h3 {
+  font-size: 22px;
+  color: #2a5298;
+  margin-bottom: 8px;
+}
+
+.timeline-content p {
+  font-size: 16px;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+
+/* Modelos Atômicos */
+
+/* Define a fonre, fundo e texto dos modelos */
+.modelos {
+  padding: 60px 20px;
+  background: linear-gradient(120deg, #1e3c72, #2a5298);
+  color: white;
+  text-align: center;
+}
+
+.modelos h2 {
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+/* Define o "contorno" container e o transforma em flex box */
+.modelos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+/* Fundo transparente, cantos arredondados e espaço interno */
+.modelo-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  width: 220px;
+  transition: transform 0.3s, background 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Define a imagem do container */
+.modelo-card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  object-fit: cover;
+}
+
+/*Define o título e a descrição do card */
+.modelo-card h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.modelo-card p {
+  font-size: 14px;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+/* Hover nos cards */
+.modelo-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* História da tabela*/
+.historia-tabela {
+  padding: 60px 20px; /*espaço interno*/
+  background: #f4f6fb; /*cor claro*/
+  color: #333; /*cor do texto*/
+  text-align: center; /*centraliza o texto*/
+}
+
+.historia-tabela h2 {
+  font-size: 32px; /*deixa maior*/
+  margin-bottom: 20px; /*separa o texto seguinte*/
+  color: #1e3c72; /*azul escuro*/
+}
+
+.historia-tabela p {
+  max-width: 700px; /*limita a largura do texto*/
+  margin: 0 auto 40px; /*centraliza*/
+  font-size: 16px; 
+  line-height: 1.6; /*deixa o texto mais espaçado*/
+}
+
+.linha-tempo {
+  display: flex; /*organiza os eventos*/
+  flex-direction: column;
+  gap: 25px; /*espaço entre os eventos*/
+  position: relative; /*posicionar a linha no centro*/
+  max-width: 800px; /*limita a largura total*/
+  margin: 0 auto; /*centraliza a linha*/
+}
+
+.linha-tempo::before {
+  content: ""; /*gera um elemento vazio*/
+  position: absolute;
+  left: 50%; /*posiciona no meio*/
+  top: 0;
+  height: 100%; /*ocupa toda a altura*/
+  width: 4px; /*largura da linha*/
+  background: #2a5298; /*azul*/
+  transform: translateX(-50%); /*corrige para alinhar no centro*/
+}
+
+.evento {
+  background: white;
+  border-radius: 12px; /*bordas arredondadas*/
+  padding: 20px; /*espaço interno*/
+  width: 45%; /*ocupa menos da metade da largura*/
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /*sombra leve*/
+}
+
+/*posições pares e ímpares*/
+.evento:nth-child(odd) {
+  align-self: flex-start;
+  margin-left: 0;
+}
+
+/*o ano de cada elemento fica azul e em negrito*/
+.evento:nth-child(even) {
+  align-self: flex-end;
+  margin-right: 0;
+}
+
+.ano {
+  font-size: 18px;
+  font-weight: bold;
+  color: #2a5298;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.evento h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #1e3c72;
+}
+
+.evento p {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Navbar Tabela */
+.navbar {
+  width: 102%; /* ocupa a tela inteira */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 30px 60px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* Botões */
+.group-buttons button {
+  background-color: #6a93ba;
+  color: white;
+  border: none;
+  padding: 20px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.group-buttons button:hover {
+  background-color: #1565c0;
+}
+
+
+

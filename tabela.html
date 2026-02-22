@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Site de Química</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">⚗️ Química+</div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">🏠Início</a></li>
+      <li><a href="tabela.html">🧪Tabela</a></li>
+    </ul>
+  </nav>
+
+  <div class="group-buttons" style="display:flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0;">
+      <button onclick="location.href='ametais.html'">Ametais</button>
+      <button onclick="location.href='gases-nobres.html'">Gases Nobres</button>
+      <button onclick="location.href='metais-alcalinos.html'">Metais Alcalinos</button>
+      <button onclick="location.href='metais-Alcalino-Terrosos.html'">Metais Alcalinos-Terrosos</button>
+      <button onclick="location.href='metais-de-transicao.html'">Metais de Transição</button>
+      <button onclick="location.href='metais-pos-transicao.html'">Metais de pós Transição</button>
+      <button onclick="location.href='lantanideos.html'">Lantanídeos</button>
+      <button onclick="location.href='actinideos.html'">Actinideos</button>
+      <button onclick="location.href='metaloides.html'">Metaloides</button>
+    </div>
+    
+    <div>
+    <h1>Tabela Periódica</h1>
+    <center><p>
+      Explore a Tabela Periódica Interativa e descubra os elementos químicos de forma prática e dinâmica. <br />
+      Aqui, você pode clicar em cada elemento para visualizar informações detalhadas, como número atômico, <br />
+      massa, propriedades químicas e aplicações no cotidiano. Aprenda Química de maneira mais visual e acessível.
+    </p></center>
+  </header>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        #periodic-table {
+            display: grid;
+            grid-template-columns: repeat(18, 60px);
+            grid-template-rows: repeat(11, 60px);
+            gap: 5px;
+            max-width: 1200px;
+        }
+        /* Adjust for lanthanides and actinides */
+        .element {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 12px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .element:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgb(255, 255, 255);
+        }
+        .metal { background-color: #ffcdd2; color: #b71c1c; }
+        .non-metal { background-color: #c8e6c9; color: #1b5e20; }
+        .metalloid { background-color: #fff3e0; color: #e65100; }
+        .noble-gas { background-color: #e8f5e8; color: #2e7d32; }
+        .alkali-metal { background-color: #ffebee; color: #b71c1c; }
+        .alkaline-earth { background-color: #fce4ec; color: #880e4f; }
+        .transition-metal { background-color: #e1f5fe; color: #0d47a1; }
+        .post-transition { background-color: #f3e5f5; color: #4a148c; }
+        .lanthanide { background-color: #fff8e1; color: #ff6f00; }
+        .actinide { background-color: #efebe9; color: #6d4c41; }
+        .empty {
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
+        .symbol {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .number {
+            font-size: 10px;
+        }
+        #legend {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        #modal-content {
+            background-color: rgb(0, 0, 0);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        #modal-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        #modal-content li {
+            margin: 5px 0;
+        }
+        #close-modal {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <center><div id="periodic-table"></div>
+    <div id="legend">
+        <div class="legend-item"><div class="legend-color" style="background-color: #ffebee;"></div><span>Metal Alcalino</span></div>
+        <div class="legend-item"><div class="legend-color" style="background-color: #fce4ec;"></div><span>Metal Alcalino-Terroso</span></div>
+        <div class="legend-item"><div class="legend-color" style="background-color: #e1f5fe;"></div><span>Metal de Transição</span></div>
+        <div class="legend-item"><div class="legend-color" style="background-color: #f3e5f5;"></div><span>Metal de Pós-Transição</span></div>
+        <div class="legend-item"><div class="legend-color" style="background-color: #ffcdd2;"></div><span>Metal Representativo</span></div>
+        <div class="legend-item"><div class="legend-color" style="background-color: #c8e6c9;"></div><span>Ammetal</span></div>
+        <div class="legend-item"><div class="legend-color" style="background-color: #fff3e0;"></div><span>Metalóide</span></div>
+        <div class="legend-item"><div class="legend-color" style="background-color: #e8f5e8;"></div><span>Gás Nobre</span></div>
+        <div class="legend-item"><div class="legend-color" style="background-color: #fff8e1;"></div><span>Lantanídeo</span></div>
+        <div class="legend-item"><div class="legend-color" style="background-color: #efebe9;"></div><span>Actinídeo</span></div>
+    </div>
+    <div id="modal">
+        <div id="modal-content">
+            <h2 id="element-name"></h2>
+            <ul>
+                <li><strong>Número Atômico:</strong> <span id="element-atomic-number"></span></li>
+                <li><strong>Número do Elemento:</strong> <span id="element-number"></span></li>
+                <li><strong>Nome:</strong> <span id="element-full-name"></span></li>
+                <li><strong>Tipo:</strong> <span id="element-type"></span></li>
+            </ul>
+            <button id="close-modal">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        const elements = [
+            { id: 1, symbol: 'H', name: 'Hidrogênio', group: 1, period: 1, type: 'non-metal', fullName: 'Hidrogênio' },
+            { id: 2, symbol: 'He', name: 'Hélio', group: 18, period: 1, type: 'noble-gas', fullName: 'Hélio' },
+            { id: 3, symbol: 'Li', name: 'Lítio', group: 1, period: 2, type: 'alkali-metal', fullName: 'Lítio' },
+            { id: 4, symbol: 'Be', name: 'Berílio', group: 2, period: 2, type: 'alkaline-earth', fullName: 'Berílio' },
+            { id: 5, symbol: 'B', name: 'Boro', group: 13, period: 2, type: 'metalloid', fullName: 'Boro' },
+            { id: 6, symbol: 'C', name: 'Carbono', group: 14, period: 2, type: 'non-metal', fullName: 'Carbono' },
+            { id: 7, symbol: 'N', name: 'Nitrogênio', group: 15, period: 2, type: 'non-metal', fullName: 'Nitrogênio' },
+            { id: 8, symbol: 'O', name: 'Oxigênio', group: 16, period: 2, type: 'non-metal', fullName: 'Oxigênio' },
+            { id: 9, symbol: 'F', name: 'Flúor', group: 17, period: 2, type: 'non-metal', fullName: 'Flúor' },
+            { id: 10, symbol: 'Ne', name: 'Neônio', group: 18, period: 2, type: 'noble-gas', fullName: 'Neônio' },
+            { id: 11, symbol: 'Na', name: 'Sódio', group: 1, period: 3, type: 'alkali-metal', fullName: 'Sódio' },
+            { id: 12, symbol: 'Mg', name: 'Magnésio', group: 2, period: 3, type: 'alkaline-earth', fullName: 'Magnésio' },
+            { id: 13, symbol: 'Al', name: 'Alumínio', group: 13, period: 3, type: 'metal', fullName: 'Alumínio' },
+            { id: 14, symbol: 'Si', name: 'Silício', group: 14, period: 3, type: 'metalloid', fullName: 'Silício' },
+            { id: 15, symbol: 'P', name: 'Fósforo', group: 15, period: 3, type: 'non-metal', fullName: 'Fósforo' },
+            { id: 16, symbol: 'S', name: 'Enxofre', group: 16, period: 3, type: 'non-metal', fullName: 'Enxofre' },
+            { id: 17, symbol: 'Cl', name: 'Cloro', group: 17, period: 3, type: 'non-metal', fullName: 'Cloro' },
+            { id: 18, symbol: 'Ar', name: 'Argônio', group: 18, period: 3, type: 'noble-gas', fullName: 'Argônio' },
+            { id: 19, symbol: 'K', name: 'Potássio', group: 1, period: 4, type: 'alkali-metal', fullName: 'Potássio' },
+            { id: 20, symbol: 'Ca', name: 'Cálcio', group: 2, period: 4, type: 'alkaline-earth', fullName: 'Cálcio' },
+            { id: 21, symbol: 'Sc', name: 'Escândio', group: 3, period: 4, type: 'transition-metal', fullName: 'Escândio' },
+            { id: 22, symbol: 'Ti', name: 'Titânio', group: 4, period: 4, type: 'transition-metal', fullName: 'Titânio' },
+            { id: 23, symbol: 'V', name: 'Vanádio', group: 5, period: 4, type: 'transition-metal', fullName: 'Vanádio' },
+            { id: 24, symbol: 'Cr', name: 'Cromo', group: 6, period: 4, type: 'transition-metal', fullName: 'Cromo' },
+            { id: 25, symbol: 'Mn', name: 'Manganês', group: 7, period: 4, type: 'transition-metal', fullName: 'Manganês' },
+            { id: 26, symbol: 'Fe', name: 'Ferro', group: 8, period: 4, type: 'transition-metal', fullName: 'Ferro' },
+            { id: 27, symbol: 'Co', name: 'Cobalto', group: 9, period: 4, type: 'transition-metal', fullName: 'Cobalto' },
+            { id: 28, symbol: 'Ni', name: 'Níquel', group: 10, period: 4, type: 'transition-metal', fullName: 'Níquel' },
+            { id: 29, symbol: 'Cu', name: 'Cobre', group: 11, period: 4, type: 'transition-metal', fullName: 'Cobre' },
+            { id: 30, symbol: 'Zn', name: 'Zinco', group: 12, period: 4, type: 'transition-metal', fullName: 'Zinco' },
+            { id: 31, symbol: 'Ga', name: 'Gálio', group: 13, period: 4, type: 'post-transition', fullName: 'Gálio' },
+            { id: 32, symbol: 'Ge', name: 'Germânio', group: 14, period: 4, type: 'metalloid', fullName: 'Germânio' },
+            { id: 33, symbol: 'As', name: 'Arsênio', group: 15, period: 4, type: 'metalloid', fullName: 'Arsênio' },
+            { id: 34, symbol: 'Se', name: 'Selênio', group: 16, period: 4, type: 'non-metal', fullName: 'Selênio' },
+            { id: 35, symbol: 'Br', name: 'Bromo', group: 17, period: 4, type: 'non-metal', fullName: 'Bromo' },
+            { id: 36, symbol: 'Kr', name: 'Criptônio', group: 18, period: 4, type: 'noble-gas', fullName: 'Criptônio' },
+            { id: 37, symbol: 'Rb', name: 'Rubídio', group: 1, period: 5, type: 'alkali-metal', fullName: 'Rubídio' },
+            { id: 38, symbol: 'Sr', name: 'Estrôncio', group: 2, period: 5, type: 'alkaline-earth', fullName: 'Estrôncio' },
+            { id: 39, symbol: 'Y', name: 'Ítrio', group: 3, period: 5, type: 'transition-metal', fullName: 'Ítrio' },
+            { id: 40, symbol: 'Zr', name: 'Zircônio', group: 4, period: 5, type: 'transition-metal', fullName: 'Zircônio' },
+            { id: 41, symbol: 'Nb', name: 'Nióbio', group: 5, period: 5, type: 'transition-metal', fullName: 'Nióbio' },
+            { id: 42, symbol: 'Mo', name: 'Molibdênio', group: 6, period: 5, type: 'transition-metal', fullName: 'Molibdênio' },
+            { id: 43, symbol: 'Tc', name: 'Tecnécio', group: 7, period: 5, type: 'transition-metal', fullName: 'Tecnécio' },
+            { id: 44, symbol: 'Ru', name: 'Rutênio', group: 8, period: 5, type: 'transition-metal', fullName: 'Rutênio' },
+            { id: 45, symbol: 'Rh', name: 'Ródio', group: 9, period: 5, type: 'transition-metal', fullName: 'Ródio' },
+            { id: 46, symbol: 'Pd', name: 'Paládio', group: 10, period: 5, type: 'transition-metal', fullName: 'Paládio' },
+            { id: 47, symbol: 'Ag', name: 'Prata', group: 11, period: 5, type: 'transition-metal', fullName: 'Prata' },
+            { id: 48, symbol: 'Cd', name: 'Cádmio', group: 12, period: 5, type: 'transition-metal', fullName: 'Cádmio' },
+            { id: 49, symbol: 'In', name: 'Índio', group: 13, period: 5, type: 'post-transition', fullName: 'Índio' },
+            { id: 50, symbol: 'Sn', name: 'Estanho', group: 14, period: 5, type: 'post-transition', fullName: 'Estanho' },
+            { id: 51, symbol: 'Sb', name: 'Antimônio', group: 15, period: 5, type: 'metalloid', fullName: 'Antimônio' },
+            { id: 52, symbol: 'Te', name: 'Telúrio', group: 16, period: 5, type: 'metalloid', fullName: 'Telúrio' },
+            { id: 53, symbol: 'I', name: 'Iodo', group: 17, period: 5, type: 'non-metal', fullName: 'Iodo' },
+            { id: 54, symbol: 'Xe', name: 'Xenônio', group: 18, period: 5, type: 'noble-gas', fullName: 'Xenônio' },
+            { id: 55, symbol: 'Cs', name: 'Césio', group: 1, period: 6, type: 'alkali-metal', fullName: 'Césio' },
+            { id: 56, symbol: 'Ba', name: 'Bário', group: 2, period: 6, type: 'alkaline-earth', fullName: 'Bário' },
+            { id: 57, symbol: 'La', name: 'Lantânio', group: 3, period: 6, type: 'lanthanide', fullName: 'Lantânio' },
+            { id: 58, symbol: 'Ce', name: 'Cério', group: 4, period: 8, type: 'lanthanide', fullName: 'Cério' },
+            { id: 59, symbol: 'Pr', name: 'Praseodímio', group: 5, period: 8, type: 'lanthanide', fullName: 'Praseodímio' },
+            { id: 60, symbol: 'Nd', name: 'Neodímio', group: 6, period: 8, type: 'lanthanide', fullName: 'Neodímio' },
+            { id: 61, symbol: 'Pm', name: 'Promécio', group: 7, period: 8, type: 'lanthanide', fullName: 'Promécio' },
+            { id: 62, symbol: 'Sm', name: 'Samário', group: 8, period: 8, type: 'lanthanide', fullName: 'Samário' },
+            { id: 63, symbol: 'Eu', name: 'Európio', group: 9, period: 8, type: 'lanthanide', fullName: 'Európio' },
+            { id: 64, symbol: 'Gd', name: 'Gadolínio', group: 10, period: 8, type: 'lanthanide', fullName: 'Gadolínio' },
+            { id: 65, symbol: 'Tb', name: 'Térbio', group: 11, period: 8, type: 'lanthanide', fullName: 'Térbio' },
+            { id: 66, symbol: 'Dy', name: 'Disprósio', group: 12, period: 8, type: 'lanthanide', fullName: 'Disprósio' },
+            { id: 67, symbol: 'Ho', name: 'Hólmio', group: 13, period: 8, type: 'lanthanide', fullName: 'Hólmio' },
+            { id: 68, symbol: 'Er', name: 'Érbio', group: 14, period: 8, type: 'lanthanide', fullName: 'Érbio' },
+            { id: 69, symbol: 'Tm', name: 'Túlio', group: 15, period: 8, type: 'lanthanide', fullName: 'Túlio' },
+            { id: 70, symbol: 'Yb', name: 'Itérbio', group: 16, period: 8, type: 'lanthanide', fullName: 'Itérbio' },
+            { id: 71, symbol: 'Lu', name: 'Lutécio', group: 17, period: 8, type: 'lanthanide', fullName: 'Lutécio' },
+            { id: 72, symbol: 'Hf', name: 'Háfnio', group: 4, period: 6, type: 'transition-metal', fullName: 'Háfnio' },
+            { id: 73, symbol: 'Ta', name: 'Tântalo', group: 5, period: 6, type: 'transition-metal', fullName: 'Tântalo' },
+            { id: 74, symbol: 'W', name: 'Tungstênio', group: 6, period: 6, type: 'transition-metal', fullName: 'Tungstênio' },
+            { id: 75, symbol: 'Re', name: 'Rênio', group: 7, period: 6, type: 'transition-metal', fullName: 'Rênio' },
+            { id: 76, symbol: 'Os', name: 'Ósmio', group: 8, period: 6, type: 'transition-metal', fullName: 'Ósmio' },
+            { id: 77, symbol: 'Ir', name: 'Irídio', group: 9, period: 6, type: 'transition-metal', fullName: 'Irídio' },
+            { id: 78, symbol: 'Pt', name: 'Platina', group: 10, period: 6, type: 'transition-metal', fullName: 'Platina' },
+            { id: 79, symbol: 'Au', name: 'Ouro', group: 11, period: 6, type: 'transition-metal', fullName: 'Ouro' },
+            { id: 80, symbol: 'Hg', name: 'Mercúrio', group: 12, period: 6, type: 'transition-metal', fullName: 'Mercúrio' },
+            { id: 81, symbol: 'Tl', name: 'Tálio', group: 13, period: 6, type: 'post-transition', fullName: 'Tálio' },
+            { id: 82, symbol: 'Pb', name: 'Chumbo', group: 14, period: 6, type: 'post-transition', fullName: 'Chumbo' },
+            { id: 83, symbol: 'Bi', name: 'Bismuto', group: 15, period: 6, type: 'post-transition', fullName: 'Bismuto' },
+            { id: 84, symbol: 'Po', name: 'Polônio', group: 16, period: 6, type: 'metalloid', fullName: 'Polônio' },
+            { id: 85, symbol: 'At', name: 'Ástato', group: 17, period: 6, type: 'non-metal', fullName: 'Ástato' },
+            { id: 86, symbol: 'Rn', name: 'Radônio', group: 18, period: 6, type: 'noble-gas', fullName: 'Radônio' },
+            { id: 87, symbol: 'Fr', name: 'Frâncio', group: 1, period: 7, type: 'alkali-metal', fullName: 'Frâncio' },
+            { id: 88, symbol: 'Ra', name: 'Rádio', group: 2, period: 7, type: 'alkaline-earth', fullName: 'Rádio' },
+            { id: 89, symbol: 'Ac', name: 'Actínio', group: 3, period: 7, type: 'actinide', fullName: 'Actínio' },
+            { id: 90, symbol: 'Th', name: 'Tório', group: 4, period: 9, type: 'actinide', fullName: 'Tório' },
+            { id: 91, symbol: 'Pa', name: 'Protactínio', group: 5, period: 9, type: 'actinide', fullName: 'Protactínio' },
+            { id: 92, symbol: 'U', name: 'Urânio', group: 6, period: 9, type: 'actinide', fullName: 'Urânio' },
+            { id: 93, symbol: 'Np', name: 'Netúnio', group: 7, period: 9, type: 'actinide', fullName: 'Netúnio' },
+            { id: 94, symbol: 'Pu', name: 'Plutônio', group: 8, period: 9, type: 'actinide', fullName: 'Plutônio' },
+            { id: 95, symbol: 'Am', name: 'Amerício', group: 9, period: 9, type: 'actinide', fullName: 'Amerício' },
+            { id: 96, symbol: 'Cm', name: 'Cúrio', group: 10, period: 9, type: 'actinide', fullName: 'Cúrio' },
+            { id: 97, symbol: 'Bk', name: 'Berquélio', group: 11, period: 9, type: 'actinide', fullName: 'Berquélio' },
+            { id: 98, symbol: 'Cf', name: 'Califórnio', group: 12, period: 9, type: 'actinide', fullName: 'Califórnio' },
+            { id: 99, symbol: 'Es', name: 'Einstêinio', group: 13, period: 9, type: 'actinide', fullName: 'Einstêinio' },
+            { id: 100, symbol: 'Fm', name: 'Férmio', group: 14, period: 9, type: 'actinide', fullName: 'Férmio' },
+            { id: 101, symbol: 'Md', name: 'Mendelevéio', group: 15, period: 9, type: 'actinide', fullName: 'Mendelevéio' },
+            { id: 102, symbol: 'No', name: 'Nobélio', group: 16, period: 9, type: 'actinide', fullName: 'Nobélio' },
+            { id: 103, symbol: 'Lr', name: 'Laurêncio', group: 17, period: 9, type: 'actinide', fullName: 'Laurêncio' },
+            { id: 104, symbol: 'Rf', name: 'Rutherfórdio', group: 4, period: 7, type: 'transition-metal', fullName: 'Rutherfórdio' },
+            { id: 105, symbol: 'Db', name: 'Dubnium', group: 5, period: 7, type: 'transition-metal', fullName: 'Dubnium' },
+            { id: 106, symbol: 'Sg', name: 'Seaborgium', group: 6, period: 7, type: 'transition-metal', fullName: 'Seaborgium' },
+            { id: 107, symbol: 'Bh', name: 'Bóhrio', group: 7, period: 7, type: 'transition-metal', fullName: 'Bóhrio' },
+            { id: 108, symbol: 'Hs', name: 'Hássio', group: 8, period: 7, type: 'transition-metal', fullName: 'Hássio' },
+            { id: 109, symbol: 'Mt', name: 'Meitnério', group: 9, period: 7, type: 'transition-metal', fullName: 'Meitnério' },
+            { id: 110, symbol: 'Ds', name: 'Darmstádio', group: 10, period: 7, type: 'transition-metal', fullName: 'Darmstádio' },
+            { id: 111, symbol: 'Rg', name: 'Roentgênio', group: 11, period: 7, type: 'transition-metal', fullName: 'Roentgênio' },
+            { id: 112, symbol: 'Cn', name: 'Copernício', group: 12, period: 7, type: 'transition-metal', fullName: 'Copernício' },
+            { id: 113, symbol: 'Nh', name: 'Nihônio', group: 13, period: 7, type: 'post-transition', fullName: 'Nihônio' },
+            { id: 114, symbol: 'Fl', name: 'Fleróvio', group: 14, period: 7, type: 'post-transition', fullName: 'Fleróvio' },
+            { id: 115, symbol: 'Mc', name: 'Moscóvio', group: 15, period: 7, type: 'post-transition', fullName: 'Moscóvio' },
+            { id: 116, symbol: 'Lv', name: 'Livermório', group: 16, period: 7, type: 'post-transition', fullName: 'Livermório' },
+            { id: 117, symbol: 'Ts', name: 'Tenessino', group: 17, period: 7, type: 'non-metal', fullName: 'Tenessino' },
+            { id: 118, symbol: 'Og', name: 'Oganessônio', group: 18, period: 7, type: 'noble-gas', fullName: 'Oganessônio' }
+        ];
+
+        const table = document.getElementById('periodic-table');
+
+        elements.forEach(element => {
+            const div = document.createElement('div');
+            div.classList.add('element', element.type);
+            div.setAttribute('data-id', element.id);
+            div.innerHTML = `<div class="number">${element.id}</div><div class="symbol">${element.symbol}</div>`;
+            let row = element.period;
+            if (element.type === 'lanthanide' || element.type === 'actinide') {
+                row += 1; // Shift lanthanides and actinides down
+            }
+            div.style.gridColumn = element.group;
+            div.style.gridRow = row;
+            div.addEventListener('click', () => showModal(element));
+            table.appendChild(div);
+        });
+
+        // Fill empty cells
+        for (let i = 1; i <= 11; i++) {
+            for (let j = 1; j <= 18; j++) {
+                const existing = elements.find(e => (e.type === 'lanthanide' || e.type === 'actinide') && i === 8 && e.group === j || (e.type !== 'lanthanide' && e.type !== 'actinide') && e.period === i && e.group === j);
+                if (!existing) {
+                    const div = document.createElement('div');
+                    div.classList.add('element', 'empty');
+                    div.style.gridColumn = j;
+                    div.style.gridRow = i;
+                    table.appendChild(div);
+                }
+            }
+        }
+
+        function showModal(element) {
+            document.getElementById('element-name').textContent = element.symbol + ' - ' + element.name;
+            document.getElementById('element-atomic-number').textContent = element.id;
+            document.getElementById('element-number').textContent = element.id;
+            document.getElementById('element-full-name').textContent = element.fullName;
+            document.getElementById('element-type').textContent = getTypeInPortuguese(element.type);
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function getTypeInPortuguese(type) {
+            const types = {
+                'alkali-metal': 'Metal Alcalino',
+                'alkaline-earth': 'Metal Alcalino-Terroso',
+                'transition-metal': 'Metal de Transição',
+                'post-transition': 'Metal de Pós-Transição',
+                'metal': 'Metal Representativo',
+                'non-metal': 'Ammetal',
+                'metalloid': 'Metalóide',
+                'noble-gas': 'Gás Nobre',
+                'lanthanide': 'Lantanídeo',
+                'actinide': 'Actinídeo'
+            };
+            return types[type] || type;
+        }
+
+        document.getElementById('close-modal').addEventListener('click', () => {
+            document.getElementById('modal').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
+</content>
+</create_file></center>
+
+<br><br><br><br><footer style="background-color:#f5f5dc; text-align:center; padding:30px; font-family:'Quicksand', sans-serif; color:#333;">
+  <p>&copy; 2025 Química+</p>
+  <p>Participantes: Andriely Gamba, Gustavo Begatti, Laura Alves, Gabriel de Matos, Matheus Mendes</p>
+</footer>
+
+</body>
+</html>
